@@ -30,10 +30,6 @@ const router=createBrowserRouter([
         element:<EditResume/>  
       },
       {
-        path:'/my-resume/:resumeId/view',
-        element:<ViewResume/>
-      },
-      {
         path: '/privacypolicy',
         element: <PrivacyPolicy />,
       },
@@ -47,6 +43,10 @@ const router=createBrowserRouter([
   {
     path:'/auth/sign-in',
     element:<SignInPage/>
+  },
+  {
+    path:'/my-resume/:resumeId/view',
+    element:<ViewResume/>
   },
  
 
