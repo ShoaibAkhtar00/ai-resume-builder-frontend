@@ -9,6 +9,72 @@ import { RWebShare } from 'react-web-share'
 
 function ViewResume() {
 
+    const [resumeInfo, setResumeInfo] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { resumeId } = useParams();
+
+  useEffect(() => {
+    const GetResumeInfo = () => {
+      setLoading(true);
+      GlobalApi.GetResumeById(resumeId)
+        .then((resp) => {
+          setResumeInfo(resp.data.data);
+          setLoading(false);
+        })
+        .catch((err) => {
+          setError("Failed to fetch resume");
+          setLoading(false);
+        });
+    };
+
+    GetResumeInfo();
+  }, [resumeId]);
+
+  const HandleDownload = () => {
+    window.print();
+  };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
+
+  return (
+    <ResumeInfoContext.Provider value={{ resumeInfo, setResumeInfo }}>
+      <div id="no-print">
+        <Header />
+
+        <div className="my-10 mx-10 md:mx-20 lg:mx-36">
+          <h2 className="text-center text-2xl font-medium">
+            Congrats! Your Ultimate AI generated Resume is ready!
+          </h2>
+          <p className="text-center text-gray-400">
+            Now you are ready to download your resume, and you can share the unique resume URL with your friends and family.
+          </p>
+          <div className="flex justify-between px-44 my-10">
+            <Button onClick={HandleDownload}>Download</Button>
+
+            <RWebShare
+              data={{
+                text: "Hello Everyone, This is my resume, please open the URL to see it",
+                url: `${import.meta.env.VITE_BASE_URL}/my-resume/${resumeId}/view`,
+                title: `${resumeInfo?.firstName} ${resumeInfo?.lastName}'s resume`,
+              }}
+              onClick={() => console.log("shared successfully!")}
+            >
+              <Button>Share</Button>
+            </RWebShare>
+          </div>
+        </div>
+      </div>
+
+      <div className="my-10 mx-10 md:mx-20 lg:mx-36">
+        <div id="print-area">
+          <ResumePreview resumeInfo={resumeInfo} />
+        </div>
+      </div>
+    </ResumeInfoContext.Provider>
+  );
+
 //     const [resumeInfo,setResumeInfo]=useState();
 //     const {resumeId}=useParams();
 
@@ -60,9 +126,6 @@ function ViewResume() {
 //     </ResumeInfoContext.Provider>
 //   )
 
-    return (
-       <div>reached</div>
-    )
 }
 
 export default ViewResume
