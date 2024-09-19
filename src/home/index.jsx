@@ -7,7 +7,7 @@ import React from 'react'
 function Home() {
 
   const handleButtonClick = () => {
-    window.open("./../../public/demo.mp4", "_blank", "noopener,noreferrer");
+    window.open("/public/demo.mp4", "_blank", "noopener,noreferrer");
   };
 
   return (
