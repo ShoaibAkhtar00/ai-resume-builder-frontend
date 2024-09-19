@@ -12,7 +12,7 @@ function EditResume() {
     useEffect(()=>{
        
         GetResumeInfo();
-    },[])
+    },[])  
 
 
     const GetResumeInfo=()=>{

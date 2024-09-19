@@ -27,7 +27,11 @@ const router=createBrowserRouter([
       },
       {
         path:'/dashboard/resume/:resumeId/edit',
-        element:<EditResume/>
+        element:<EditResume/>  
+      },
+      {
+        path:'/my-resume/:resumeId/view',
+        element:<ViewResume/>
       },
       {
         path: '/privacypolicy',
@@ -44,10 +48,7 @@ const router=createBrowserRouter([
     path:'/auth/sign-in',
     element:<SignInPage/>
   },
-  {
-    path:'/my-resume/:resumeId/view',
-    element:<ViewResume/>
-  },
+ 
 
 ])
 
