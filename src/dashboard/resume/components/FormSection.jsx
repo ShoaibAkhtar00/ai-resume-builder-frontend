@@ -47,7 +47,10 @@ function FormSection() {
           :activeFormIndex==5?
           <Skills/>
           :activeFormIndex==6?
+          <div>
+          console.log("reached 6")
           <Navigate to={'/my-resume/'+resumeId+"/view"}/>
+          </div>
               
         :null
           }
